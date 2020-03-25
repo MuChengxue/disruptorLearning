@@ -30,7 +30,7 @@ public class DisruptorSingle4Test {
         disruptor.handleEventsWith(consumer);
         disruptor.start();
         new Thread(new Runnable() {
-
+            @Override
             public void run() {
                 RingBuffer<Data> ringBuffer = disruptor.getRingBuffer();
                 for (long i = 0; i < Constants.EVENT_NUM_OHM; i++) {

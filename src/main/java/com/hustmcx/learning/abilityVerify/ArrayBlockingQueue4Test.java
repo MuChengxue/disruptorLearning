@@ -10,6 +10,7 @@ public class ArrayBlockingQueue4Test {
         //向容器中添加元素
         new Thread(new Runnable() {
 
+            @Override
             public void run() {
                 long i = 0;
                 while (i < Constants.EVENT_NUM_OHM) {
@@ -25,6 +26,7 @@ public class ArrayBlockingQueue4Test {
         }).start();
 
         new Thread(new Runnable() {
+            @Override
             public void run() {
                 int k = 0;
                 while (k < Constants.EVENT_NUM_OHM) {

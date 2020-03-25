@@ -8,12 +8,12 @@ import java.util.concurrent.CountDownLatch;
 
 public class TradePushlisher implements Runnable {
 
-	private Disruptor<Trade> disruptor;
+	private Disruptor<Order> disruptor;
 	private CountDownLatch latch;
 	
 	private static int PUBLISH_COUNT = 1;
 	
-	public TradePushlisher(CountDownLatch latch, Disruptor<Trade> disruptor) {
+	public TradePushlisher(CountDownLatch latch, Disruptor<Order> disruptor) {
 		this.disruptor = disruptor;
 		this.latch = latch;
 	}
@@ -30,15 +30,16 @@ public class TradePushlisher implements Runnable {
 }
 
 
-class TradeEventTranslator implements EventTranslator<Trade> {
+class TradeEventTranslator implements EventTranslator<Order> {
 
 	private Random random = new Random();
 
-	public void translateTo(Trade event, long sequence) {
+	@Override
+	public void translateTo(Order event, long sequence) {
 		this.generateTrade(event);
 	}
 
-	private void generateTrade(Trade event) {
+	private void generateTrade(Order event) {
 		event.setPrice(random.nextDouble() * 9999);
 	}
 	

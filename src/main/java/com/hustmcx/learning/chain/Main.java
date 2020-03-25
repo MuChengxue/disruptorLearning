@@ -19,12 +19,12 @@ public class Main {
 
         //构建一个线程池用于提交任务
         ExecutorService es1 = Executors.newFixedThreadPool(1);
-        ExecutorService es2 = Executors.newFixedThreadPool(5);
+        ExecutorService es2 = Executors.newFixedThreadPool(5);//每个Handler都对应一个线程
         //1 构建Disruptor
-        Disruptor<Trade> disruptor = new Disruptor<Trade>(
-                new EventFactory<Trade>() {
-                    public Trade newInstance() {
-                        return new Trade();
+        Disruptor<Order> disruptor = new Disruptor<Order>(
+                new EventFactory<Order>() {
+                    public Order newInstance() {
+                        return new Order();
                     }
                 },
                 1024 * 1024,
@@ -79,7 +79,7 @@ public class Main {
 
 
         //3 启动disruptor
-        RingBuffer<Trade> ringBuffer = disruptor.start();
+        RingBuffer<Order> ringBuffer = disruptor.start();
 
         CountDownLatch latch = new CountDownLatch(1);
 
